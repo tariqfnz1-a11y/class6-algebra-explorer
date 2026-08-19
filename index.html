@@ -1,1 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="description"
+          content="Interactive Class 6 Algebra learning tool covering patterns, variables, expressions and simplification.">
+
+    <title>Class 6 Algebra Explorer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="hero">
+
+    <div class="container">
+
+        <h1>🔢 Class 6 Algebra Explorer</h1>
+
+        <p>
+            Explore patterns, variables and algebraic expressions
+            through interactive activities.
+        </p>
+
+        <p class="prototype">
+            Interactive Learning Prototype
+        </p>
+
+    </div>
+
+</header>
+
+
+<nav class="navbar" aria-label="Main navigation">
+
+    <div class="container nav-container">
+
+        <button onclick="showSection('home')">🏠 Home</button>
+
+        <button onclick="showSection('patterns')">
+            🔢 Patterns
+        </button>
+
+        <button onclick="showSection('variables')">
+            🔤 Variables
+        </button>
+
+        <button onclick="showSection('expressions')">
+            🧩 Expressions
+        </button>
+
+        <button onclick="showSection('simplify')">
+            ➕ Simplify
+        </button>
+
+        <button onclick="showSection('notes')">
+            📖 Study Notes
+        </button>
+
+        <button onclick="showSection('quiz')">
+            🎯 Quiz
+        </button>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+
+<!-- HOME -->
+
+<section id="home" class="section active">
+
+    <div class="card">
+
+        <h2>Welcome, Young Mathematician!</h2>
+
+        <p>
+            Algebra is a way of using numbers, letters and symbols
+            to describe mathematical ideas.
+        </p>
+
+        <p>
+            Explore the activities below and discover how algebra works.
+        </p>
+
+    </div>
+
+
+    <div class="learning-grid">
+
+        <div class="learning-card">
+
+            <div class="icon">🔢</div>
+
+            <h3>Patterns</h3>
+
+            <p>
+                Discover rules in number sequences.
+            </p>
+
+            <button onclick="showSection('patterns')">
+                Explore Patterns
+            </button>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <div class="icon">🔤</div>
+
+            <h3>Variables</h3>
+
+            <p>
+                Discover how letters can represent numbers.
+            </p>
+
+            <button onclick="showSection('variables')">
+                Explore Variables
+            </button>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <div class="icon">🧩</div>
+
+            <h3>Expressions</h3>
+
+            <p>
+                Build and evaluate algebraic expressions.
+            </p>
+
+            <button onclick="showSection('expressions')">
+                Build Expressions
+            </button>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <div class="icon">➕</div>
+
+            <h3>Simplify</h3>
+
+            <p>
+                Learn how like terms can be combined.
+            </p>
+
+            <button onclick="showSection('simplify')">
+                Simplify Expressions
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- PATTERNS -->
+
+<section id="patterns" class="section">
+
+    <div class="card">
+
+        <h2>🔢 Pattern Explorer</h2>
+
+        <p>
+            Look at the numbers and discover the rule.
+        </p>
+
+
+        <div class="pattern-display">
+
+            <span id="number1">2</span>
+
+            <span>→</span>
+
+            <span id="number2">4</span>
+
+            <span>→</span>
+
+            <span id="number3">6</span>
+
+            <span>→</span>
+
+            <span id="number4">8</span>
+
+            <span>→</span>
+
+            <span id="number5">?</span>
+
+        </div>
+
+
+        <div class="controls">
+
+            <label for="patternRule">
+                Choose the rule:
+            </label>
+
+            <select id="patternRule">
+
+                <option value="2">
+                    Add 2
+                </option>
+
+                <option value="3">
+                    Add 3
+                </option>
+
+                <option value="5">
+                    Add 5
+                </option>
+
+                <option value="10">
+                    Add 10
+                </option>
+
+            </select>
+
+            <button onclick="checkPattern()">
+                Check Pattern
+            </button>
+
+        </div>
+
+
+        <div id="patternFeedback"
+             class="feedback"
+             aria-live="polite">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- VARIABLES -->
+
+<section id="variables" class="section">
+
+    <div class="card">
+
+        <h2>🔤 Variables Explorer</h2>
+
+        <p>
+            A variable is a letter or symbol that represents a number.
+        </p>
+
+
+        <div class="equation">
+
+            <span> x + 5 = 12 </span>
+
+        </div>
+
+
+        <p>
+            What value should <strong>x</strong> have?
+        </p>
+
+
+        <input
+            type="number"
+            id="variableAnswer"
+            aria-label="Value of x"
+            placeholder="Enter x"
+        >
+
+
+        <button onclick="checkVariable()">
+            Check Answer
+        </button>
+
+
+        <div id="variableFeedback"
+             class="feedback"
+             aria-live="polite">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- EXPRESSIONS -->
+
+<section id="expressions" class="section">
+
+    <div class="card">
+
+        <h2>🧩 Expression Builder</h2>
+
+        <p>
+            Build a simple algebraic expression.
+        </p>
+
+
+        <div class="expression-builder">
+
+            <button onclick="addExpression('x')">
+                x
+            </button>
+
+            <button onclick="addExpression('2x')">
+                2x
+            </button>
+
+            <button onclick="addExpression('+')">
+                +
+            </button>
+
+            <button onclick="addExpression('-')">
+                −
+            </button>
+
+            <button onclick="addExpression('3')">
+                3
+            </button>
+
+            <button onclick="addExpression('5')">
+                5
+            </button>
+
+            <button onclick="clearExpression()">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div
+            id="expressionDisplay"
+            class="expression-display"
+            aria-live="polite">
+        </div>
+
+
+        <p>
+            Try building an expression such as:
+            <strong>x + 5</strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- SIMPLIFY -->
+
+<section id="simplify" class="section">
+
+    <div class="card">
+
+        <h2>➕ Simplifying Expressions</h2>
+
+        <p>
+            Like terms can be combined.
+        </p>
+
+
+        <div class="big-example">
+
+            3x + 2x = ?
+
+        </div>
+
+
+        <div class="answer-buttons">
+
+            <button onclick="simplifyAnswer('5x')">
+                5x
+            </button>
+
+            <button onclick="simplifyAnswer('6x')">
+                6x
+            </button>
+
+            <button onclick="simplifyAnswer('5')">
+                5
+            </button>
+
+            <button onclick="simplifyAnswer('x')">
+                x
+            </button>
+
+        </div>
+
+
+        <div
+            id="simplifyFeedback"
+            class="feedback"
+            aria-live="polite">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- NOTES -->
+
+<section id="notes" class="section">
+
+    <div class="card">
+
+        <h2>📖 Algebra Study Notes</h2>
+
+
+        <h3>What is Algebra?</h3>
+
+        <p>
+            Algebra uses numbers, letters and symbols to represent
+            mathematical relationships.
+        </p>
+
+
+        <h3>Variable</h3>
+
+        <p>
+            A variable is a letter or symbol used to represent
+            a number.
+        </p>
+
+        <p>
+            Example: <strong>x + 4</strong>
+        </p>
+
+
+        <h3>Constant</h3>
+
+        <p>
+            A constant is a number whose value does not change.
+        </p>
+
+        <p>
+            Example: In <strong>x + 7</strong>, 7 is a constant.
+        </p>
+
+
+        <h3>Coefficient</h3>
+
+        <p>
+            A coefficient is the number multiplied by a variable.
+        </p>
+
+        <p>
+            Example: In <strong>5x</strong>, 5 is the coefficient.
+        </p>
+
+
+        <h3>Like Terms</h3>
+
+        <p>
+            Terms containing the same variable are called like terms.
+        </p>
+
+        <p>
+            Example:
+            <strong>3x and 2x</strong>
+        </p>
+
+
+        <h3>Simplifying</h3>
+
+        <p>
+            Like terms can be combined.
+        </p>
+
+        <p>
+            <strong>3x + 2x = 5x</strong>
+        </p>
+
+
+        <h3>Remember</h3>
+
+        <ul>
+
+            <li>A letter can represent a number.</li>
+
+            <li>Numbers without variables are constants.</li>
+
+            <li>Like terms can be combined.</li>
+
+            <li>Always look for the pattern or rule.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- QUIZ -->
+
+<section id="quiz" class="section">
+
+    <div class="card">
+
+        <h2>🎯 Class 6 Algebra Quiz</h2>
+
+        <p>
+            Test what you have learned.
+        </p>
+
+
+        <div id="quizContainer"></div>
+
+
+        <button onclick="submitQuiz()">
+            Submit Quiz
+        </button>
+
+
+        <div
+            id="quizResult"
+            class="quiz-result"
+            aria-live="polite">
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        Class 6 Algebra Explorer
+    </p>
+
+    <p>
+        Interactive Learning Prototype
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
