@@ -1,1 +1,300 @@
+* {
+    box-sizing: border-box;
+}
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+    line-height: 1.6;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
+
+
+/* HERO */
+
+.hero {
+    background: #243b55;
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+.hero p {
+    font-size: 1.1rem;
+}
+
+.prototype {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+}
+
+
+/* NAVIGATION */
+
+.navbar {
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+    display: flex;
+    gap: 8px;
+    padding: 10px 0;
+    overflow-x: auto;
+}
+
+.navbar button {
+    border: none;
+    background: #eef2f7;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+.navbar button:hover {
+    background: #dbe7f5;
+}
+
+
+/* SECTIONS */
+
+.section {
+    display: none;
+    padding: 35px 0;
+}
+
+.section.active {
+    display: block;
+}
+
+
+/* CARDS */
+
+.card {
+    background: white;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+
+/* HOME GRID */
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.learning-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.icon {
+    font-size: 3rem;
+}
+
+.learning-card button,
+.card button {
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #243b55;
+    color: white;
+    font-size: 1rem;
+}
+
+.learning-card button:hover,
+.card button:hover {
+    opacity: 0.85;
+}
+
+
+/* PATTERNS */
+
+.pattern-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 35px 0;
+}
+
+.controls {
+    text-align: center;
+}
+
+select,
+input {
+    padding: 12px;
+    border: 1px solid #bbb;
+    border-radius: 7px;
+    font-size: 1rem;
+    margin: 8px;
+}
+
+
+/* FEEDBACK */
+
+.feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 25px;
+    font-weight: bold;
+}
+
+
+/* VARIABLES */
+
+.equation {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 30px 0;
+}
+
+
+/* EXPRESSIONS */
+
+.expression-builder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.expression-builder button {
+    min-width: 60px;
+}
+
+.expression-display {
+    min-height: 80px;
+    border: 3px dashed #aaa;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 2rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+/* SIMPLIFY */
+
+.big-example {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 35px 0;
+}
+
+.answer-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+/* QUIZ */
+
+.quiz-question {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.quiz-question h3 {
+    margin-top: 0;
+}
+
+.quiz-option {
+    display: block;
+    margin: 10px 0;
+}
+
+.quiz-result {
+    margin-top: 25px;
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    background: #243b55;
+    color: white;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .learning-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .learning-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .pattern-display {
+        font-size: 1.4rem;
+    }
+
+    .equation,
+    .big-example {
+        font-size: 2rem;
+    }
+
+}
