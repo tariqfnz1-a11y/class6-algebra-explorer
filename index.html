@@ -1,562 +1,3051 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="Interactive Class 6 Algebra learning tool covering patterns, variables, expressions and simplification.">
+<meta charset="UTF-8">
 
-    <title>Class 6 Algebra Explorer</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+<title>Interactive Algebra Explorer</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eef4ff,
+        #fff1fb
+    );
+
+    color:#20243a;
+
+    line-height:1.6;
+}
+
+/* HEADER */
+
+header{
+
+    background:
+    linear-gradient(
+        135deg,
+        #4b38c8,
+        #9b3db5
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:40px 20px;
+}
+
+header h1{
+
+    font-size:
+    clamp(30px,5vw,50px);
+
+    margin-bottom:8px;
+}
+
+header p{
+
+    font-size:18px;
+
+    opacity:.95;
+}
+
+
+/* NAVIGATION */
+
+nav{
+
+    background:white;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:12px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    box-shadow:
+    0 3px 15px
+    rgba(0,0,0,.12);
+}
+
+nav button{
+
+    border:none;
+
+    padding:
+    9px 14px;
+
+    border-radius:20px;
+
+    background:#eeeaff;
+
+    color:#503ab7;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+nav button:hover{
+
+    background:#5b4bdb;
+
+    color:white;
+}
+
+
+/* MAIN */
+
+.container{
+
+    width:
+    min(1200px,94%);
+
+    margin:auto;
+}
+
+section{
+
+    background:white;
+
+    margin:25px 0;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.08);
+}
+
+section h2{
+
+    color:#5538b8;
+
+    margin-bottom:18px;
+}
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(290px,1fr)
+    );
+
+    gap:20px;
+}
+
+.card{
+
+    background:#f8f8ff;
+
+    border:
+    2px solid #e9e5ff;
+
+    padding:20px;
+
+    border-radius:18px;
+}
+
+.card h3{
+
+    color:#5b4bdb;
+
+    margin-bottom:12px;
+}
+
+
+/* CONTROLS */
+
+.control{
+
+    margin:15px 0;
+}
+
+.control label{
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-bottom:6px;
+}
+
+input[type=range]{
+
+    width:100%;
+
+    accent-color:#684be0;
+}
+
+input[type=number],
+input[type=text],
+select{
+
+    width:100%;
+
+    padding:10px;
+
+    border:
+    2px solid #ddd;
+
+    border-radius:10px;
+
+    font-size:16px;
+}
+
+.value{
+
+    display:inline-block;
+
+    background:#6c4ee3;
+
+    color:white;
+
+    padding:
+    3px 9px;
+
+    border-radius:10px;
+}
+
+
+/* RESULTS */
+
+.result{
+
+    background:#e9fff3;
+
+    border-left:
+    5px solid #16a085;
+
+    padding:13px;
+
+    border-radius:8px;
+
+    margin-top:12px;
+}
+
+.info{
+
+    background:#fff8dc;
+
+    border-left:
+    5px solid #f1c40f;
+
+    padding:13px;
+
+    border-radius:8px;
+
+    margin:12px 0;
+}
+
+.challenge{
+
+    background:#fff0f7;
+
+    border-left:
+    5px solid #e84393;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-top:15px;
+}
+
+
+/* BUTTON */
+
+button.action{
+
+    background:#6c4ee3;
+
+    color:white;
+
+    border:none;
+
+    padding:
+    11px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    margin:5px;
+}
+
+button.action:hover{
+
+    background:#4228b0;
+}
+
+
+/* ALGEBRA TILES */
+
+.tiles{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin:20px 0;
+}
+
+.tile{
+
+    min-width:60px;
+
+    min-height:60px;
+
+    padding:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    background:#eeeaff;
+
+    border:2px solid #cfc6ff;
+}
+
+.tile.variable{
+
+    background:#ffe6f3;
+
+    border-color:#ef8abd;
+}
+
+.tile.number{
+
+    background:#e4f7ff;
+
+    border-color:#70c9e8;
+}
+
+
+/* BALANCE */
+
+.balance{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 70px 1fr;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:20px 0;
+}
+
+.pan{
+
+    min-height:150px;
+
+    border:
+    4px solid #555;
+
+    border-radius:
+    0 0 30px 30px;
+
+    background:#fff;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-content:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:15px;
+}
+
+.equal{
+
+    font-size:35px;
+
+    font-weight:bold;
+
+    text-align:center;
+}
+
+
+/* NUMBER LINE */
+
+canvas{
+
+    display:block;
+
+    width:100%;
+
+    max-width:650px;
+
+    height:auto;
+
+    margin:15px auto;
+
+    background:white;
+
+    border:
+    2px solid #ddd;
+
+    border-radius:15px;
+}
+
+
+/* QUIZ */
+
+.quiz-question{
+
+    background:#f8f5ff;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    margin-bottom:18px;
+}
+
+.option{
+
+    display:block;
+
+    background:white;
+
+    border:
+    2px solid #ddd;
+
+    padding:10px;
+
+    margin:7px 0;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+.option:hover{
+
+    border-color:#6c4ee3;
+}
+
+.correct{
+
+    background:#d9fbe8 !important;
+
+    border-color:#16a085 !important;
+}
+
+.wrong{
+
+    background:#ffe0e0 !important;
+
+    border-color:#e74c3c !important;
+}
+
+.score{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#5b4bdb;
+
+    margin:15px 0;
+}
+
+
+/* NOTES */
+
+.note{
+
+    border:
+    1px solid #ddd;
+
+    border-radius:12px;
+
+    margin:10px 0;
+
+    overflow:hidden;
+}
+
+.note-title{
+
+    padding:15px;
+
+    background:#eeeaff;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.note-content{
+
+    padding:15px;
+
+    display:none;
+}
+
+.note-content.show{
+
+    display:block;
+}
+
+
+/* FOOTER */
+
+footer{
+
+    text-align:center;
+
+    background:#29233f;
+
+    color:white;
+
+    padding:30px;
+
+    margin-top:40px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    section{
+
+        padding:16px;
+    }
+
+    nav{
+
+        position:relative;
+    }
+
+    nav button{
+
+        font-size:12px;
+
+        padding:
+        8px 10px;
+    }
+
+    .balance{
+
+        grid-template-columns:
+        1fr;
+    }
+
+    .equal{
+
+        transform:
+        rotate(90deg);
+    }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-<header class="hero">
 
-    <div class="container">
+<header>
 
-        <h1>🔢 Class 6 Algebra Explorer</h1>
+<h1>🔤 Interactive Algebra Explorer</h1>
 
-        <p>
-            Explore patterns, variables and algebraic expressions
-            through interactive activities.
-        </p>
-
-        <p class="prototype">
-            Interactive Learning Prototype
-        </p>
-
-    </div>
+<p>
+Discover algebra by changing numbers,
+moving terms and solving problems.
+</p>
 
 </header>
 
 
-<nav class="navbar" aria-label="Main navigation">
+<nav>
 
-    <div class="container nav-container">
+<button onclick="go('variables')">
+🔤 Variables
+</button>
 
-        <button onclick="showSection('home')">🏠 Home</button>
+<button onclick="go('expressions')">
+🧩 Expressions
+</button>
 
-        <button onclick="showSection('patterns')">
-            🔢 Patterns
-        </button>
+<button onclick="go('likeTerms')">
+➕ Like Terms
+</button>
 
-        <button onclick="showSection('variables')">
-            🔤 Variables
-        </button>
+<button onclick="go('balance')">
+⚖️ Equations
+</button>
 
-        <button onclick="showSection('expressions')">
-            🧩 Expressions
-        </button>
+<button onclick="go('oneStep')">
+🎯 One-Step
+</button>
 
-        <button onclick="showSection('simplify')">
-            ➕ Simplify
-        </button>
+<button onclick="go('twoStep')">
+🚀 Two-Step
+</button>
 
-        <button onclick="showSection('notes')">
-            📖 Study Notes
-        </button>
+<button onclick="go('substitution')">
+🔢 Substitution
+</button>
 
-        <button onclick="showSection('quiz')">
-            🎯 Quiz
-        </button>
+<button onclick="go('patterns')">
+🔍 Patterns
+</button>
 
-    </div>
+<button onclick="go('coordinates')">
+📈 Coordinates
+</button>
+
+<button onclick="go('quiz')">
+🧠 Quiz
+</button>
+
+<button onclick="go('notes')">
+📚 Notes
+</button>
 
 </nav>
 
 
-<main class="container">
-
-
-<!-- HOME -->
-
-<section id="home" class="section active">
-
-    <div class="card">
-
-        <h2>Welcome, Young Mathematician!</h2>
-
-        <p>
-            Algebra is a way of using numbers, letters and symbols
-            to describe mathematical ideas.
-        </p>
-
-        <p>
-            Explore the activities below and discover how algebra works.
-        </p>
-
-    </div>
-
-
-    <div class="learning-grid">
-
-        <div class="learning-card">
-
-            <div class="icon">🔢</div>
-
-            <h3>Patterns</h3>
-
-            <p>
-                Discover rules in number sequences.
-            </p>
-
-            <button onclick="showSection('patterns')">
-                Explore Patterns
-            </button>
-
-        </div>
-
-
-        <div class="learning-card">
-
-            <div class="icon">🔤</div>
-
-            <h3>Variables</h3>
-
-            <p>
-                Discover how letters can represent numbers.
-            </p>
-
-            <button onclick="showSection('variables')">
-                Explore Variables
-            </button>
-
-        </div>
-
-
-        <div class="learning-card">
-
-            <div class="icon">🧩</div>
-
-            <h3>Expressions</h3>
-
-            <p>
-                Build and evaluate algebraic expressions.
-            </p>
-
-            <button onclick="showSection('expressions')">
-                Build Expressions
-            </button>
-
-        </div>
-
-
-        <div class="learning-card">
-
-            <div class="icon">➕</div>
-
-            <h3>Simplify</h3>
-
-            <p>
-                Learn how like terms can be combined.
-            </p>
-
-            <button onclick="showSection('simplify')">
-                Simplify Expressions
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- PATTERNS -->
-
-<section id="patterns" class="section">
-
-    <div class="card">
-
-        <h2>🔢 Pattern Explorer</h2>
-
-        <p>
-            Look at the numbers and discover the rule.
-        </p>
-
-
-        <div class="pattern-display">
-
-            <span id="number1">2</span>
-
-            <span>→</span>
-
-            <span id="number2">4</span>
-
-            <span>→</span>
-
-            <span id="number3">6</span>
-
-            <span>→</span>
-
-            <span id="number4">8</span>
-
-            <span>→</span>
-
-            <span id="number5">?</span>
-
-        </div>
-
-
-        <div class="controls">
-
-            <label for="patternRule">
-                Choose the rule:
-            </label>
-
-            <select id="patternRule">
-
-                <option value="2">
-                    Add 2
-                </option>
-
-                <option value="3">
-                    Add 3
-                </option>
-
-                <option value="5">
-                    Add 5
-                </option>
-
-                <option value="10">
-                    Add 10
-                </option>
-
-            </select>
-
-            <button onclick="checkPattern()">
-                Check Pattern
-            </button>
-
-        </div>
-
-
-        <div id="patternFeedback"
-             class="feedback"
-             aria-live="polite">
-        </div>
-
-    </div>
-
-</section>
-
+<div class="container">
 
 
 <!-- VARIABLES -->
 
-<section id="variables" class="section">
+<section id="variables">
 
-    <div class="card">
+<h2>🔤 Variables & Constants</h2>
 
-        <h2>🔤 Variables Explorer</h2>
-
-        <p>
-            A variable is a letter or symbol that represents a number.
-        </p>
+<div class="grid">
 
 
-        <div class="equation">
+<div class="card">
 
-            <span> x + 5 = 12 </span>
+<h3>Build an Algebraic Expression</h3>
 
-        </div>
+<div class="control">
+
+<label>
+Coefficient
+<span class="value"
+id="coefficientValue">
+3
+</span>
+</label>
+
+<input
+type="range"
+id="coefficient"
+min="1"
+max="10"
+value="3"
+oninput="updateExpression()">
+
+</div>
 
 
-        <p>
-            What value should <strong>x</strong> have?
-        </p>
+<div class="control">
+
+<label>
+Constant
+<span class="value"
+id="constantValue">
+5
+</span>
+</label>
+
+<input
+type="range"
+id="constant"
+min="0"
+max="20"
+value="5"
+oninput="updateExpression()">
+
+</div>
 
 
-        <input
-            type="number"
-            id="variableAnswer"
-            aria-label="Value of x"
-            placeholder="Enter x"
-        >
+<div class="tiles"
+id="expressionTiles">
+</div>
 
 
-        <button onclick="checkVariable()">
-            Check Answer
-        </button>
+<div class="result"
+id="expressionResult">
+</div>
+
+</div>
 
 
-        <div id="variableFeedback"
-             class="feedback"
-             aria-live="polite">
-        </div>
+<div class="card">
 
-    </div>
+<h3>What do the symbols mean?</h3>
+
+<p>
+<strong>x</strong> = variable
+</p>
+
+<p>
+<strong>3</strong> = coefficient
+</p>
+
+<p>
+<strong>5</strong> = constant
+</p>
+
+<div class="info">
+
+In <strong>3x + 5</strong>,
+3 tells us how many x's we have.
+
+</div>
+
+</div>
+
+
+</div>
 
 </section>
-
 
 
 <!-- EXPRESSIONS -->
 
-<section id="expressions" class="section">
+<section id="expressions">
 
-    <div class="card">
+<h2>🧩 Expression Builder</h2>
 
-        <h2>🧩 Expression Builder</h2>
-
-        <p>
-            Build a simple algebraic expression.
-        </p>
+<div class="grid">
 
 
-        <div class="expression-builder">
+<div class="card">
 
-            <button onclick="addExpression('x')">
-                x
-            </button>
+<h3>Change the Expression</h3>
 
-            <button onclick="addExpression('2x')">
-                2x
-            </button>
+<div class="control">
 
-            <button onclick="addExpression('+')">
-                +
-            </button>
+<label>
+Coefficient
+</label>
 
-            <button onclick="addExpression('-')">
-                −
-            </button>
+<input
+type="number"
+id="expCoeff"
+value="4"
+oninput="calculateExpression()">
 
-            <button onclick="addExpression('3')">
-                3
-            </button>
-
-            <button onclick="addExpression('5')">
-                5
-            </button>
-
-            <button onclick="clearExpression()">
-                Clear
-            </button>
-
-        </div>
+</div>
 
 
-        <div
-            id="expressionDisplay"
-            class="expression-display"
-            aria-live="polite">
-        </div>
+<div class="control">
+
+<label>
+Variable
+</label>
+
+<input
+type="text"
+id="expVariable"
+value="x"
+maxlength="1"
+oninput="calculateExpression()">
+
+</div>
 
 
-        <p>
-            Try building an expression such as:
-            <strong>x + 5</strong>
-        </p>
+<div class="control">
 
-    </div>
+<label>
+Constant
+</label>
 
-</section>
+<input
+type="number"
+id="expConstant"
+value="7"
+oninput="calculateExpression()">
 
-
-
-<!-- SIMPLIFY -->
-
-<section id="simplify" class="section">
-
-    <div class="card">
-
-        <h2>➕ Simplifying Expressions</h2>
-
-        <p>
-            Like terms can be combined.
-        </p>
+</div>
 
 
-        <div class="big-example">
+<div class="result"
+id="expressionBuilderResult">
+</div>
 
-            3x + 2x = ?
-
-        </div>
-
-
-        <div class="answer-buttons">
-
-            <button onclick="simplifyAnswer('5x')">
-                5x
-            </button>
-
-            <button onclick="simplifyAnswer('6x')">
-                6x
-            </button>
-
-            <button onclick="simplifyAnswer('5')">
-                5
-            </button>
-
-            <button onclick="simplifyAnswer('x')">
-                x
-            </button>
-
-        </div>
+</div>
 
 
-        <div
-            id="simplifyFeedback"
-            class="feedback"
-            aria-live="polite">
-        </div>
+<div class="card">
 
-    </div>
+<h3>Expression or Equation?</h3>
+
+<p>
+
+<strong>Expression:</strong>
+
+</p>
+
+<p>
+4x + 7
+</p>
+
+<p>
+
+<strong>Equation:</strong>
+
+</p>
+
+<p>
+4x + 7 = 19
+</p>
+
+<div class="info">
+
+An expression does not contain an equality sign.
+
+An equation contains an equality sign.
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
+<!-- LIKE TERMS -->
 
-<!-- NOTES -->
+<section id="likeTerms">
 
-<section id="notes" class="section">
+<h2>➕ Combining Like Terms</h2>
 
-    <div class="card">
-
-        <h2>📖 Algebra Study Notes</h2>
-
-
-        <h3>What is Algebra?</h3>
-
-        <p>
-            Algebra uses numbers, letters and symbols to represent
-            mathematical relationships.
-        </p>
+<div class="grid">
 
 
-        <h3>Variable</h3>
+<div class="card">
 
-        <p>
-            A variable is a letter or symbol used to represent
-            a number.
-        </p>
+<h3>Watch the Terms Combine</h3>
 
-        <p>
-            Example: <strong>x + 4</strong>
-        </p>
+<div class="control">
 
+<label>
+First coefficient
+<span class="value"
+id="likeAValue">
+3
+</span>
+</label>
 
-        <h3>Constant</h3>
+<input
+type="range"
+id="likeA"
+min="1"
+max="10"
+value="3"
+oninput="combineTerms()">
 
-        <p>
-            A constant is a number whose value does not change.
-        </p>
-
-        <p>
-            Example: In <strong>x + 7</strong>, 7 is a constant.
-        </p>
-
-
-        <h3>Coefficient</h3>
-
-        <p>
-            A coefficient is the number multiplied by a variable.
-        </p>
-
-        <p>
-            Example: In <strong>5x</strong>, 5 is the coefficient.
-        </p>
+</div>
 
 
-        <h3>Like Terms</h3>
+<div class="control">
 
-        <p>
-            Terms containing the same variable are called like terms.
-        </p>
+<label>
+Second coefficient
+<span class="value"
+id="likeBValue">
+4
+</span>
+</label>
 
-        <p>
-            Example:
-            <strong>3x and 2x</strong>
-        </p>
+<input
+type="range"
+id="likeB"
+min="1"
+max="10"
+value="4"
+oninput="combineTerms()">
 
-
-        <h3>Simplifying</h3>
-
-        <p>
-            Like terms can be combined.
-        </p>
-
-        <p>
-            <strong>3x + 2x = 5x</strong>
-        </p>
+</div>
 
 
-        <h3>Remember</h3>
+<div class="tiles"
+id="likeTiles">
+</div>
 
-        <ul>
 
-            <li>A letter can represent a number.</li>
+<div class="result"
+id="likeResult">
+</div>
 
-            <li>Numbers without variables are constants.</li>
+</div>
 
-            <li>Like terms can be combined.</li>
 
-            <li>Always look for the pattern or rule.</li>
+<div class="card">
 
-        </ul>
+<h3>Key Idea</h3>
 
-    </div>
+<p>
+
+3x + 4x
+
+</p>
+
+<p>
+
+= 7x
+
+</p>
+
+<div class="info">
+
+Only <strong>like terms</strong>
+can be combined.
+
+</div>
+
+<p>
+
+x terms combine with x terms.
+
+</p>
+
+<p>
+
+Numbers combine with numbers.
+
+</p>
+
+</div>
+
+
+</div>
 
 </section>
 
+
+<!-- BALANCE -->
+
+<section id="balance">
+
+<h2>⚖️ Equation Balance</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>Interactive Balance</h3>
+
+<div class="control">
+
+<label>
+x =
+<span class="value"
+id="balanceXValue">
+5
+</span>
+</label>
+
+<input
+type="range"
+id="balanceX"
+min="1"
+max="10"
+value="5"
+oninput="drawBalance()">
+
+</div>
+
+
+<div class="balance">
+
+<div class="pan"
+id="leftPan">
+</div>
+
+<div class="equal">
+=
+</div>
+
+<div class="pan"
+id="rightPan">
+</div>
+
+</div>
+
+
+<div class="result"
+id="balanceResult">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Balance Principle</h3>
+
+<p>
+
+An equation is like a balance.
+
+</p>
+
+<p>
+
+Whatever you do to one side,
+you must also do to the other side.
+
+</p>
+
+<div class="info">
+
+⚖️ Keep both sides equal.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ONE STEP -->
+
+<section id="oneStep">
+
+<h2>🎯 Solve a One-Step Equation</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>Try x + a = b</h3>
+
+<div class="control">
+
+<label>
+a =
+<span class="value"
+id="oneAValue">
+4
+</span>
+</label>
+
+<input
+type="range"
+id="oneA"
+min="1"
+max="10"
+value="4"
+oninput="solveOneStep()">
+
+</div>
+
+
+<div class="control">
+
+<label>
+b =
+<span class="value"
+id="oneBValue">
+12
+</span>
+</label>
+
+<input
+type="range"
+id="oneB"
+min="2"
+max="20"
+value="12"
+oninput="solveOneStep()">
+
+</div>
+
+
+<div class="result"
+id="oneStepResult">
+</div>
+
+
+<div class="challenge">
+
+What number must be added to
+<strong id="oneChallenge"></strong>
+to make the equation true?
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Method</h3>
+
+<p>
+
+x + 4 = 12
+
+</p>
+
+<p>
+
+Subtract 4 from both sides.
+
+</p>
+
+<p>
+
+x = 8
+
+</p>
+
+<div class="info">
+
+The goal is to get the variable
+alone.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TWO STEP -->
+
+<section id="twoStep">
+
+<h2>🚀 Two-Step Equation Solver</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>ax + b = c</h3>
+
+
+<div class="control">
+
+<label>
+a
+<span class="value"
+id="twoAValue">
+2
+</span>
+</label>
+
+<input
+type="range"
+id="twoA"
+min="1"
+max="10"
+value="2"
+oninput="solveTwoStep()">
+
+</div>
+
+
+<div class="control">
+
+<label>
+b
+<span class="value"
+id="twoBValue">
+4
+</span>
+</label>
+
+<input
+type="range"
+id="twoB"
+min="0"
+max="20"
+value="4"
+oninput="solveTwoStep()">
+
+</div>
+
+
+<div class="control">
+
+<label>
+c
+<span class="value"
+id="twoCValue">
+14
+</span>
+</label>
+
+<input
+type="range"
+id="twoC"
+min="1"
+max="40"
+value="14"
+oninput="solveTwoStep()">
+
+</div>
+
+
+<div class="result"
+id="twoStepResult">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Two-Step Strategy</h3>
+
+<p>
+
+1. Remove the constant.
+
+</p>
+
+<p>
+
+2. Remove the coefficient.
+
+</p>
+
+<p>
+
+3. Check your answer.
+
+</p>
+
+<div class="info">
+
+For:
+
+<strong>2x + 4 = 14</strong>
+
+<br><br>
+
+Subtract 4.
+
+<br>
+
+2x = 10
+
+<br><br>
+
+Divide by 2.
+
+<br>
+
+x = 5
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SUBSTITUTION -->
+
+<section id="substitution">
+
+<h2>🔢 Substitution Machine</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>Expression</h3>
+
+<p
+style="font-size:28px;text-align:center"
+id="subExpression">
+3x + 2
+</p>
+
+
+<div class="control">
+
+<label>
+
+x =
+<span class="value"
+id="subXValue">
+5
+</span>
+
+</label>
+
+<input
+type="range"
+id="subX"
+min="0"
+max="20"
+value="5"
+oninput="substitute()">
+
+</div>
+
+
+<div class="result"
+id="subResult">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Substitution</h3>
+
+<p>
+
+Replace the variable with its value.
+
+</p>
+
+<p>
+
+3x + 2
+
+</p>
+
+<p>
+
+3(5) + 2
+
+</p>
+
+<p>
+
+15 + 2
+
+</p>
+
+<p>
+
+<strong>17</strong>
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PATTERNS -->
+
+<section id="patterns">
+
+<h2>🔍 Interactive Number Patterns</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>Change the Rule</h3>
+
+<div class="control">
+
+<label>
+
+Starting number
+
+<span class="value"
+id="patternStartValue">
+2
+</span>
+
+</label>
+
+<input
+type="range"
+id="patternStart"
+min="0"
+max="20"
+value="2"
+oninput="drawPattern()">
+
+</div>
+
+
+<div class="control">
+
+<label>
+
+Common difference
+
+<span class="value"
+id="patternDiffValue">
+3
+</span>
+
+</label>
+
+<input
+type="range"
+id="patternDiff"
+min="1"
+max="10"
+value="3"
+oninput="drawPattern()">
+
+</div>
+
+
+<div
+id="patternDisplay"
+class="tiles">
+</div>
+
+
+<div
+class="result"
+id="patternResult">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Rule</h3>
+
+<p>
+
+The next number is found by adding
+the common difference.
+
+</p>
+
+<p>
+
+2, 5, 8, 11, 14...
+
+</p>
+
+<p>
+
+Rule:
+
+<strong>+3</strong>
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COORDINATES -->
+
+<section id="coordinates">
+
+<h2>📈 Interactive Coordinate Plane</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>Move the Point</h3>
+
+<div class="control">
+
+<label>
+
+x-coordinate:
+<span class="value"
+id="coordXValue">
+2
+</span>
+
+</label>
+
+<input
+type="range"
+id="coordX"
+min="-8"
+max="8"
+value="2"
+oninput="drawCoordinates()">
+
+</div>
+
+
+<div class="control">
+
+<label>
+
+y-coordinate:
+<span class="value"
+id="coordYValue">
+3
+</span>
+
+</label>
+
+<input
+type="range"
+id="coordY"
+min="-8"
+max="8"
+value="3"
+oninput="drawCoordinates()">
+
+</div>
+
+
+<canvas
+id="coordinateCanvas"
+width="600"
+height="500">
+</canvas>
+
+
+<div
+class="result"
+id="coordinateResult">
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Coordinates</h3>
+
+<p>
+
+A coordinate is written:
+
+<strong>(x, y)</strong>
+
+</p>
+
+<p>
+
+Move horizontally first.
+
+</p>
+
+<p>
+
+Then move vertically.
+
+</p>
+
+<div class="info">
+
+Try placing the point in all four quadrants.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 
 <!-- QUIZ -->
 
-<section id="quiz" class="section">
+<section id="quiz">
 
-    <div class="card">
+<h2>🧠 Algebra Challenge — 15 MCQs</h2>
 
-        <h2>🎯 Class 6 Algebra Quiz</h2>
+<div class="score">
 
-        <p>
-            Test what you have learned.
-        </p>
+Score:
+<span id="score">0</span>/15
 
+</div>
 
-        <div id="quizContainer"></div>
+<div id="quizContainer"></div>
 
+<button
+class="action"
+onclick="checkQuiz()">
 
-        <button onclick="submitQuiz()">
-            Submit Quiz
-        </button>
+Check Answers
 
+</button>
 
-        <div
-            id="quizResult"
-            class="quiz-result"
-            aria-live="polite">
-        </div>
+<button
+class="action"
+onclick="resetQuiz()">
 
-    </div>
+Reset
+
+</button>
+
+<div id="quizResult"></div>
 
 </section>
 
 
-</main>
+<!-- NOTES -->
 
+<section id="notes">
+
+<h2>📚 Interactive Study Notes</h2>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+🔤 Variables & Constants
+
+</div>
+
+<div class="note-content">
+
+A variable represents an unknown or changing value.
+
+A constant is a number whose value does not change.
+
+Example:
+
+3x + 5
+
+3 = coefficient
+
+x = variable
+
+5 = constant
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+🧩 Expressions
+
+</div>
+
+<div class="note-content">
+
+An algebraic expression contains numbers,
+variables and operations.
+
+Example:
+
+4x + 7
+
+An expression does not contain an equality sign.
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+➕ Like Terms
+
+</div>
+
+<div class="note-content">
+
+Like terms contain the same variable
+raised to the same power.
+
+3x + 4x = 7x
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+⚖️ Equations
+
+</div>
+
+<div class="note-content">
+
+An equation states that two expressions
+are equal.
+
+Example:
+
+2x + 4 = 14
+
+Both sides must remain balanced.
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+🔢 Substitution
+
+</div>
+
+<div class="note-content">
+
+Substitution means replacing a variable
+with a known value.
+
+If x = 5:
+
+3x + 2
+
+becomes:
+
+3(5) + 2 = 17
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+🔍 Patterns
+
+</div>
+
+<div class="note-content">
+
+Algebra can describe patterns.
+
+Example:
+
+2, 5, 8, 11...
+
+The rule is +3.
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<div
+class="note-title"
+onclick="toggleNote(this)">
+
+📈 Coordinates
+
+</div>
+
+<div class="note-content">
+
+Coordinates are written as:
+
+(x,y)
+
+The x-coordinate tells horizontal position.
+
+The y-coordinate tells vertical position.
+
+</div>
+
+</div>
+
+</section>
+
+
+</div>
 
 
 <footer>
 
-    <p>
-        Class 6 Algebra Explorer
-    </p>
+<p>
+🔤 Interactive Algebra Explorer
+</p>
 
-    <p>
-        Interactive Learning Prototype
-    </p>
+<p>
+Learn algebra by experimenting, predicting and solving.
+</p>
 
 </footer>
 
 
-<script src="script.js"></script>
+<script>
+
+
+/* ================= NAVIGATION ================= */
+
+function go(id){
+
+    document
+    .getElementById(id)
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ================= VARIABLES ================= */
+
+function updateExpression(){
+
+    const coefficient =
+    Number(
+        document.getElementById(
+            "coefficient"
+        ).value
+    );
+
+    const constant =
+    Number(
+        document.getElementById(
+            "constant"
+        ).value
+    );
+
+
+    document.getElementById(
+        "coefficientValue"
+    ).textContent =
+    coefficient;
+
+
+    document.getElementById(
+        "constantValue"
+    ).textContent =
+    constant;
+
+
+    const container =
+    document.getElementById(
+        "expressionTiles"
+    );
+
+    container.innerHTML="";
+
+
+    for(let i=0;i<coefficient;i++){
+
+        const tile =
+        document.createElement(
+            "div"
+        );
+
+        tile.className =
+        "tile variable";
+
+        tile.textContent="x";
+
+        container.appendChild(tile);
+
+    }
+
+
+    if(constant>0){
+
+        const tile =
+        document.createElement(
+            "div"
+        );
+
+        tile.className =
+        "tile number";
+
+        tile.textContent =
+        "+" + constant;
+
+        container.appendChild(tile);
+
+    }
+
+
+    document.getElementById(
+        "expressionResult"
+    ).innerHTML =
+
+    "<strong>Expression:</strong> " +
+
+    coefficient +
+
+    "x + " +
+
+    constant +
+
+    "<br><br>" +
+
+    coefficient +
+
+    " copies of x + " +
+
+    constant;
+
+}
+
+
+/* ================= EXPRESSION BUILDER ================= */
+
+function calculateExpression(){
+
+    const a =
+    Number(
+        document.getElementById(
+            "expCoeff"
+        ).value
+    );
+
+    const variable =
+    document.getElementById(
+        "expVariable"
+    ).value || "x";
+
+    const c =
+    Number(
+        document.getElementById(
+            "expConstant"
+        ).value
+    );
+
+
+    document.getElementById(
+        "expressionBuilderResult"
+    ).innerHTML =
+
+    "<strong>" +
+
+    a +
+
+    variable +
+
+    " + " +
+
+    c +
+
+    "</strong>" +
+
+    "<br><br>" +
+
+    "Coefficient = " +
+
+    a +
+
+    "<br>" +
+
+    "Variable = " +
+
+    variable +
+
+    "<br>" +
+
+    "Constant = " +
+
+    c;
+
+}
+
+
+/* ================= LIKE TERMS ================= */
+
+function combineTerms(){
+
+    const a =
+    Number(
+        document.getElementById(
+            "likeA"
+        ).value
+    );
+
+    const b =
+    Number(
+        document.getElementById(
+            "likeB"
+        ).value
+    );
+
+
+    document.getElementById(
+        "likeAValue"
+    ).textContent=a;
+
+
+    document.getElementById(
+        "likeBValue"
+    ).textContent=b;
+
+
+    const container =
+    document.getElementById(
+        "likeTiles"
+    );
+
+    container.innerHTML="";
+
+
+    for(let i=0;i<a+b;i++){
+
+        const tile =
+        document.createElement(
+            "div"
+        );
+
+        tile.className =
+        "tile variable";
+
+        tile.textContent="x";
+
+        container.appendChild(tile);
+
+    }
+
+
+    document.getElementById(
+        "likeResult"
+    ).innerHTML =
+
+    "<strong>" +
+
+    a +
+
+    "x + " +
+
+    b +
+
+    "x = " +
+
+    (a+b) +
+
+    "x</strong>";
+
+}
+
+
+/* ================= BALANCE ================= */
+
+function drawBalance(){
+
+    const x =
+    Number(
+        document.getElementById(
+            "balanceX"
+        ).value
+    );
+
+
+    document.getElementById(
+        "balanceXValue"
+    ).textContent=x;
+
+
+    const left =
+    document.getElementById(
+        "leftPan"
+    );
+
+    const right =
+    document.getElementById(
+        "rightPan"
+    );
+
+
+    left.innerHTML="";
+    right.innerHTML="";
+
+
+    for(let i=0;i<x;i++){
+
+        const tile =
+        document.createElement(
+            "div"
+        );
+
+        tile.className =
+        "tile variable";
+
+        tile.textContent="x";
+
+        left.appendChild(tile);
+
+    }
+
+
+    for(let i=0;i<x;i++){
+
+        const tile =
+        document.createElement(
+            "div"
+        );
+
+        tile.className =
+        "tile number";
+
+        tile.textContent="1";
+
+        right.appendChild(tile);
+
+    }
+
+
+    document.getElementById(
+        "balanceResult"
+    ).innerHTML =
+
+    "Both sides contain " +
+
+    "<strong>" +
+
+    x +
+
+    "</strong>" +
+
+    " equal units.";
+
+}
+
+
+/* ================= ONE STEP ================= */
+
+function solveOneStep(){
+
+    const a =
+    Number(
+        document.getElementById(
+            "oneA"
+        ).value
+    );
+
+    const b =
+    Number(
+        document.getElementById(
+            "oneB"
+        ).value
+    );
+
+
+    document.getElementById(
+        "oneAValue"
+    ).textContent=a;
+
+
+    document.getElementById(
+        "oneBValue"
+    ).textContent=b;
+
+
+    const answer =
+    b-a;
+
+
+    document.getElementById(
+        "oneStepResult"
+    ).innerHTML =
+
+    "<strong>x + " +
+
+    a +
+
+    " = " +
+
+    b +
+
+    "</strong>" +
+
+    "<br><br>" +
+
+    "Subtract " +
+
+    a +
+
+    " from both sides." +
+
+    "<br><br>" +
+
+    "<strong>x = " +
+
+    answer +
+
+    "</strong>";
+
+
+    document.getElementById(
+        "oneChallenge"
+    ).textContent=
+
+    "x + " + a + " = " + b;
+
+}
+
+
+/* ================= TWO STEP ================= */
+
+function solveTwoStep(){
+
+    const a =
+    Number(
+        document.getElementById(
+            "twoA"
+        ).value
+    );
+
+    const b =
+    Number(
+        document.getElementById(
+            "twoB"
+        ).value
+    );
+
+    const c =
+    Number(
+        document.getElementById(
+            "twoC"
+        ).value
+    );
+
+
+    document.getElementById(
+        "twoAValue"
+    ).textContent=a;
+
+    document.getElementById(
+        "twoBValue"
+    ).textContent=b;
+
+    document.getElementById(
+        "twoCValue"
+    ).textContent=c;
+
+
+    const answer =
+    (c-b)/a;
+
+
+    document.getElementById(
+        "twoStepResult"
+    ).innerHTML =
+
+    "<strong>" +
+
+    a +
+
+    "x + " +
+
+    b +
+
+    " = " +
+
+    c +
+
+    "</strong>" +
+
+    "<br><br>" +
+
+    "Step 1: subtract " +
+
+    b +
+
+    "<br>" +
+
+    a +
+
+    "x = " +
+
+    (c-b) +
+
+    "<br><br>" +
+
+    "Step 2: divide by " +
+
+    a +
+
+    "<br><br>" +
+
+    "<strong>x = " +
+
+    answer.toFixed(2) +
+
+    "</strong>";
+
+}
+
+
+/* ================= SUBSTITUTION ================= */
+
+function substitute(){
+
+    const x =
+    Number(
+        document.getElementById(
+            "subX"
+        ).value
+    );
+
+
+    document.getElementById(
+        "subXValue"
+    ).textContent=x;
+
+
+    const answer =
+    3*x+2;
+
+
+    document.getElementById(
+        "subResult"
+    ).innerHTML =
+
+    "3(" +
+
+    x +
+
+    ") + 2" +
+
+    "<br><br>" +
+
+    "= " +
+
+    (3*x) +
+
+    " + 2" +
+
+    "<br><br>" +
+
+    "<strong>= " +
+
+    answer +
+
+    "</strong>";
+
+}
+
+
+/* ================= PATTERNS ================= */
+
+function drawPattern(){
+
+    const start =
+    Number(
+        document.getElementById(
+            "patternStart"
+        ).value
+    );
+
+    const diff =
+    Number(
+        document.getElementById(
+            "patternDiff"
+        ).value
+    );
+
+
+    document.getElementById(
+        "patternStartValue"
+    ).textContent=start;
+
+
+    document.getElementById(
+        "patternDiffValue"
+    ).textContent=diff;
+
+
+    const container =
+    document.getElementById(
+        "patternDisplay"
+    );
+
+    container.innerHTML="";
+
+
+    let numbers=[];
+
+
+    for(let i=0;i<8;i++){
+
+        const value =
+        start+i*diff;
+
+        numbers.push(value);
+
+
+        const tile =
+        document.createElement(
+            "div"
+        );
+
+        tile.className =
+        "tile number";
+
+        tile.textContent=value;
+
+        container.appendChild(tile);
+
+    }
+
+
+    document.getElementById(
+        "patternResult"
+    ).innerHTML =
+
+    "Pattern: <strong>" +
+
+    numbers.join(", ") +
+
+    "...</strong>" +
+
+    "<br><br>" +
+
+    "Rule: add " +
+
+    "<strong>" +
+
+    diff +
+
+    "</strong>";
+
+}
+
+
+/* ================= COORDINATES ================= */
+
+function drawCoordinates(){
+
+    const x =
+    Number(
+        document.getElementById(
+            "coordX"
+        ).value
+    );
+
+    const y =
+    Number(
+        document.getElementById(
+            "coordY"
+        ).value
+    );
+
+
+    document.getElementById(
+        "coordXValue"
+    ).textContent=x;
+
+
+    document.getElementById(
+        "coordYValue"
+    ).textContent=y;
+
+
+    const canvas =
+    document.getElementById(
+        "coordinateCanvas"
+    );
+
+    const ctx =
+    canvas.getContext("2d");
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    const originX=300;
+    const originY=250;
+
+    const scale=25;
+
+
+    /* GRID */
+
+    ctx.strokeStyle="#ddd";
+
+    ctx.lineWidth=1;
+
+
+    for(let i=-10;i<=10;i++){
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            originX+i*scale,
+            0
+        );
+
+        ctx.lineTo(
+            originX+i*scale,
+            500
+        );
+
+        ctx.stroke();
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            0,
+            originY-i*scale
+        );
+
+        ctx.lineTo(
+            600,
+            originY-i*scale
+        );
+
+        ctx.stroke();
+
+    }
+
+
+    /* AXES */
+
+    ctx.strokeStyle="#333";
+
+    ctx.lineWidth=3;
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        0,
+        originY
+    );
+
+    ctx.lineTo(
+        600,
+        originY
+    );
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        originX,
+        0
+    );
+
+    ctx.lineTo(
+        originX,
+        500
+    );
+
+    ctx.stroke();
+
+
+    /* POINT */
+
+    const px =
+    originX+x*scale;
+
+    const py =
+    originY-y*scale;
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        px,
+        py,
+        10,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fillStyle="#e84393";
+
+    ctx.fill();
+
+
+    ctx.fillStyle="#222";
+
+    ctx.font="18px Arial";
+
+    ctx.fillText(
+        "(" + x + "," + y + ")",
+        px+12,
+        py-12
+    );
+
+
+    document.getElementById(
+        "coordinateResult"
+    ).innerHTML =
+
+    "Point coordinates: " +
+
+    "<strong>(" +
+
+    x +
+
+    ", " +
+
+    y +
+
+    ")</strong>";
+
+}
+
+
+/* ================= NOTES ================= */
+
+function toggleNote(element){
+
+    element
+    .nextElementSibling
+    .classList
+    .toggle("show");
+
+}
+
+
+/* ================= QUIZ ================= */
+
+const questions=[
+
+{
+q:"Which symbol is commonly used for a variable?",
+o:["x","5","+","="],
+a:0
+},
+
+{
+q:"In 4x + 7, what is the coefficient?",
+o:["x","4","7","+"],
+a:1
+},
+
+{
+q:"In 3x + 5, what is the constant?",
+o:["3","x","5","8"],
+a:2
+},
+
+{
+q:"What is 3x + 4x?",
+o:["7","7x","12x","x"],
+a:1
+},
+
+{
+q:"If x = 5, what is 2x?",
+o:["7","10","25","2"],
+a:1
+},
+
+{
+q:"Solve x + 4 = 10.",
+o:["4","5","6","14"],
+a:2
+},
+
+{
+q:"Solve x - 3 = 7.",
+o:["4","7","10","21"],
+a:2
+},
+
+{
+q:"Solve 2x = 12.",
+o:["4","6","10","24"],
+a:1
+},
+
+{
+q:"Solve 2x + 4 = 12.",
+o:["2","4","6","8"],
+a:1
+},
+
+{
+q:"Which is an equation?",
+o:["3x + 4","5x","7 + 2","3x + 4 = 10"],
+a:3
+},
+
+{
+q:"What is the next number? 2, 5, 8, 11...",
+o:["12","13","14","15"],
+a:2
+},
+
+{
+q:"The coordinate (3,4) means:",
+o:[
+"3 horizontal, 4 vertical",
+"4 horizontal, 3 vertical",
+"3 + 4",
+"7"
+],
+a:0
+},
+
+{
+q:"What does substitution mean?",
+o:[
+"Removing numbers",
+"Replacing a variable with a value",
+"Adding equations",
+"Drawing graphs"
+],
+a:1
+},
+
+{
+q:"What must remain equal when solving an equation?",
+o:[
+"Only the left side",
+"Only the right side",
+"Both sides",
+"Neither side"
+],
+a:2
+},
+
+{
+q:"What is 5x + 2x?",
+o:["7","10x","7x","x²"],
+a:2
+}
+
+];
+
+
+function loadQuiz(){
+
+    const container =
+    document.getElementById(
+        "quizContainer"
+    );
+
+
+    questions.forEach(
+    (question,index)=>{
+
+        const box =
+        document.createElement(
+            "div"
+        );
+
+        box.className=
+        "quiz-question";
+
+
+        let html=
+
+        "<h3>" +
+
+        (index+1) +
+
+        ". " +
+
+        question.q +
+
+        "</h3>";
+
+
+        question.o.forEach(
+        (option,i)=>{
+
+            html+=`
+
+            <label class="option">
+
+            <input
+            type="radio"
+            name="q${index}"
+            value="${i}">
+
+            ${option}
+
+            </label>
+
+            `;
+
+        });
+
+
+        box.innerHTML=html;
+
+        container.appendChild(box);
+
+    });
+
+}
+
+
+function checkQuiz(){
+
+    let score=0;
+
+
+    questions.forEach(
+    (question,index)=>{
+
+        const selected=
+        document.querySelector(
+            `input[name="q${index}"]:checked`
+        );
+
+
+        const options=
+        document.querySelectorAll(
+            `input[name="q${index}"]`
+        );
+
+
+        options.forEach(
+        (input,i)=>{
+
+            input.parentElement
+            .classList
+            .remove(
+                "correct",
+                "wrong"
+            );
+
+
+            if(i===question.a){
+
+                input.parentElement
+                .classList
+                .add("correct");
+
+            }
+
+        });
+
+
+        if(selected){
+
+            if(
+                Number(
+                    selected.value
+                )===question.a
+            ){
+
+                score++;
+
+            }
+            else{
+
+                selected.parentElement
+                .classList
+                .add("wrong");
+
+            }
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "score"
+    ).textContent=score;
+
+
+    let message;
+
+
+    if(score>=13)
+
+        message="🏆 Excellent algebra skills!";
+
+    else if(score>=10)
+
+        message="🌟 Great work!";
+
+    else if(score>=7)
+
+        message="👍 Good effort!";
+
+    else
+
+        message=
+        "📚 Keep practising!";
+
+
+    document.getElementById(
+        "quizResult"
+    ).innerHTML=
+
+    `<div class="result">
+
+    You scored <strong>
+    ${score}/15
+    </strong>
+
+    <br>
+
+    ${message}
+
+    </div>`;
+
+}
+
+
+function resetQuiz(){
+
+    document
+    .querySelectorAll(
+        ".quiz-question input"
+    )
+    .forEach(
+        input=>{
+            input.checked=false;
+        }
+    );
+
+
+    document
+    .querySelectorAll(
+        ".option"
+    )
+    .forEach(
+        option=>{
+
+            option
+            .classList
+            .remove(
+                "correct",
+                "wrong"
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "score"
+    ).textContent="0";
+
+
+    document.getElementById(
+        "quizResult"
+    ).innerHTML="";
+
+}
+
+
+/* ================= INITIALIZE ================= */
+
+updateExpression();
+
+calculateExpression();
+
+combineTerms();
+
+drawBalance();
+
+solveOneStep();
+
+solveTwoStep();
+
+substitute();
+
+drawPattern();
+
+drawCoordinates();
+
+loadQuiz();
+
+</script>
 
 </body>
 
